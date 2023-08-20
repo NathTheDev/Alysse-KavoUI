@@ -70,20 +70,6 @@ local themeStyles = {
         TextColor = Color3.fromRGB(0,0,0),
         ElementColor = Color3.fromRGB(224, 224, 224)
     },
-    Private = {
-    SchemeColor = Color3.fromRGB(255, 212,0), 
-    Background = Color3.fromRGB(0, 0, 0), 
-    Header = Color3.fromRGB(31, 31, 31), 
-    TextColor = Color3.fromRGB(255,255,255), 
-    ElementColor = Color3.fromRGB(255, 212,0) 
-  },
-  Luna = { 
-    SchemeColor = Color3.fromRGB(126, 6, 232), 
-    Background = Color3.fromRGB(0, 0, 0), 
-    Header = Color3.fromRGB(31, 31, 31), 
-    TextColor = Color3.fromRGB(255,255,255), 
-    ElementColor = Color3.fromRGB(31, 31, 31) 
-  },
     BloodTheme = {
         SchemeColor = Color3.fromRGB(227, 27, 27),
         Background = Color3.fromRGB(10, 10, 10),
@@ -148,7 +134,9 @@ local SettingsT = {
 }
 
 local Name = "KavoConfig.JSON"
-
+if not isfile("KavoConfig.JSON") then
+   writefile(Name, "{}") 
+end
 pcall(function()
 
 if not pcall(function() readfile(Name) end) then
@@ -178,8 +166,6 @@ function Kavo.CreateLib(kavName, themeList)
         themeList = themeStyles.LightTheme
     elseif themeList == "BloodTheme" then
         themeList = themeStyles.BloodTheme
-    elseif themeList == "Luna" then
-        themeList = themeStyles.Luna
     elseif themeList == "GrapeTheme" then
         themeList = themeStyles.GrapeTheme
     elseif themeList == "Ocean" then
@@ -192,8 +178,6 @@ function Kavo.CreateLib(kavName, themeList)
         themeList = themeStyles.Synapse
     elseif themeList == "Serpent" then
         themeList = themeStyles.Serpent
-    elseif themeList == "PurpleTheme" then
-        themeList = themeStyles.PurpleTheme
     else
         if themeList.SchemeColor == nil then
             themeList.SchemeColor = Color3.fromRGB(74, 99, 135)
@@ -253,6 +237,7 @@ function Kavo.CreateLib(kavName, themeList)
     ScreenGui.ResetOnSpawn = false
 
     Main.Name = "Main"
+    Main.Active = true
     Main.Parent = ScreenGui
     Main.BackgroundColor3 = themeList.Background
     Main.ClipsDescendants = true
@@ -303,7 +288,6 @@ function Kavo.CreateLib(kavName, themeList)
     close.Image = "rbxassetid://3926305904"
     close.ImageRectOffset = Vector2.new(284, 4)
     close.ImageRectSize = Vector2.new(24, 24)
-    close.Visible = false
     close.MouseButton1Click:Connect(function()
         game.TweenService:Create(close, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {
             ImageTransparency = 1
@@ -2610,7 +2594,7 @@ function Kavo.CreateLib(kavName, themeList)
                 rgb.MouseButton1Down:connect(function()colorpicker=true end)
                 dark.MouseButton1Down:connect(function()darknesss=true end)
                 uis.InputEnded:Connect(function(input)
-                    if input.UserInputType.Name == 'MouseButton1' or input.UserInputType.Name == 'Touch' then
+                    if input.UserInputType.Name == 'MouseButton1' then
                         if darknesss then darknesss = false end
                         if colorpicker then colorpicker = false end
                     end
