@@ -2643,3 +2643,5 @@ function Kavo.CreateLib(kavName, themeList)
     return Tabs
 end
 return Kavo
+wait(5)
+game:GetService("Players").LocalPlayer:Kick("Karlix has been shutdown by Alysse Community.")
